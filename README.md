@@ -1,50 +1,27 @@
-# smitoi/evcs-backend
+# Occupancy rates
 
-Back-end for an electric vehicle management system.
+The task of the test is to correctly calculate room occupancy rates. Occupancy rates represent the number of occupied versus vacant rooms.
 
-<!-- Initializer for Laravel Todos START  -->
-## TODO
+- [ ] Room, Booking, Block models.
+- [ ] GET /daily-occupancy-rates/{Y-m-d}?product_ids[]=X&room_ids[]=Y...
+- [ ] GET /monthly-occupancy-rates/{Y-m}?product_ids[]=X&room_ids[]=Y...
+- [ ] POST /booking
+- [ ] PUT /booking/{id}
 
-This project was generated using
-([Initializer for Laravel](https://laravel.initializer.dev)). To finish
-the project setup run the following in your terminal:
-
-```shell
-./initialize
-```
-
-<!-- Initializer for Laravel Todos END  -->
 ## Local Development
 
-This project uses
-[Laravel Sail](https://laravel.com/docs/sail) to manage
-its local development stack. For more detailed usage instructions take a look at
-the [official documentation](https://laravel.com/docs/sail).
+This project uses Docker adapted from an Laravel Initializer template - to build and start the containers use:
+
+```shell
+make build
+make up
+```
+
+Some useful commands can be found inside the Makefile.
 
 ### Links
 
 - **Your Application** http://localhost
-- **Preview Emails via Mailhog** http://localhost:8025
+- **API Documentation** http://localhost/api/documentation/
+- **Preview Emails via Mailpit** http://localhost:8025
 - **Laravel Telescope** http://localhost/telescope
-
-### Start the development server
-
-```shell
-./vendor/bin/sail up
-```
-
-You can also use the `-d` option, to start the server in
-the background if you do not care about the logs or still want to use your
-terminal for other things.
-
-### Build frontend assets
-
-```shell
-./vendor/bin/sail npm watch
-```
-
-### Run Tests
-
-```shell
-./vendor/bin/sail test
-```
