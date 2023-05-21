@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 /**
  * Class Room
  * @property int $id
+ * @property string $name
  * @property int $capacity
  *
  * @property-read Collection<Booking> $bookings
@@ -26,6 +27,7 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
         'capacity'
     ];
 

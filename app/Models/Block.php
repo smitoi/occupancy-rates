@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\OccupiesRoom;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +24,7 @@ use Illuminate\Support\Carbon;
  */
 class Block extends Model
 {
-    use HasFactory;
+    use HasFactory, OccupiesRoom;
 
     protected $fillable = [
         'room_id',
@@ -35,9 +36,4 @@ class Block extends Model
         'starts_at' => 'date',
         'ends_at' => 'date',
     ];
-
-    public function room(): BelongsTo
-    {
-        return $this->belongsTo(Room::class, 'room_id', 'id');
-    }
 }

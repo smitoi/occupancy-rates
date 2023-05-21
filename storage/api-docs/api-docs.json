@@ -1,0 +1,127 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Occupancy Rates",
+        "description": "Occupancy rates",
+        "version": "0.0.1"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "Verifies the credentials and provides a bearer token",
+                "description": "Login",
+                "operationId": "login",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/LoginRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success with a valid auth token",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "data": {
+                                        "token": "valid-auth-token"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Failed if the credentials are not valid",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": false,
+                                    "message": "Invalid credentials provided"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/daily-occupancy-rates/{date}": {
+            "get": {
+                "tags": [
+                    "room"
+                ],
+                "summary": "Gets the daily occupancy rates for a list of rooms",
+                "description": "Daily occupancy",
+                "operationId": "dailyOccupancyRates",
+                "parameters": [
+                    {
+                        "parameter": "date",
+                        "name": "date",
+                        "in": "path",
+                        "description": "Date on which the occupancy rate will be computed"
+                    },
+                    {
+                        "parameter": "room_ids",
+                        "name": "room_ids",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success with the daily occupancy rates computed",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "occupancy_rate": 0.05
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "requestBodies": {
+            "LoginRequest": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

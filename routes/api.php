@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', LoginController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(RoomController::class)
+        ->prefix('/room')
+        ->as('room.')->group(static function () {
+            Route::get('/daily-occupancy-rates', 'dailyOccupancyRates')->name('daily-occupancy-rates');
+            Route::get('/monthly-occupancy-rates', 'monthlyOccupancyRates')->name('monthly-occupancy-rates');
+    });
 });

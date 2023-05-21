@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Room::factory(3)->create();
+        if (app()->runningUnitTests() === false) {
+            Room::factory(3)->create();
 
-        Booking::factory(100)->create();
-        Block::factory(10)->create();
+            Booking::factory(100)->create();
+            Block::factory(10)->create();
+        }
     }
 }

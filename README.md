@@ -2,7 +2,7 @@
 
 The task of the test is to correctly calculate room occupancy rates. Occupancy rates represent the number of occupied versus vacant rooms.
 
-- [ ] Room, Booking, Block models.
+- [x] Room, Booking, Block models.
 - [ ] GET /daily-occupancy-rates/{Y-m-d}?product_ids[]=X&room_ids[]=Y...
 - [ ] GET /monthly-occupancy-rates/{Y-m}?product_ids[]=X&room_ids[]=Y...
 - [ ] POST /booking
