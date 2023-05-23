@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -54,14 +54,17 @@ class LoginController extends Controller
         )->first();
 
         if ($user && Auth::attempt($credentials)) {
-            return response(status: 200)->json([
+            return response()->json([
                 'token' => $user->createToken($request->getClientIp())->plainTextToken,
             ]);
         }
 
-        return response(status: 400)->json([
-            'message' => 'Invalid credentials provided',
-        ]);
+        return response()->json(
+            data: [
+                'message' => 'Invalid credentials provided',
+            ],
+            status: 400
+        );
     }
 }
 

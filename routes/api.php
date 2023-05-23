@@ -16,11 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', LoginController::class);
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::controller(RoomController::class)
         ->prefix('/room')
         ->as('room.')->group(static function () {
-            Route::get('/daily-occupancy-rates', 'dailyOccupancyRates')->name('daily-occupancy-rates');
-            Route::get('/monthly-occupancy-rates', 'monthlyOccupancyRates')->name('monthly-occupancy-rates');
-    });
+            Route::get('/daily-occupancy-rates/{date}', 'dailyOccupancyRates')
+                ->name('daily-occupancy-rates')
+                ->where('date', '2[0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[01])');
+            Route::get('/monthly-occupancy-rates/{date}', 'monthlyOccupancyRates')
+                ->name('monthly-occupancy-rates')
+                ->where('date', '2[0-9]{3}-(0[1-9]|1[0-2])');
+        });
 });

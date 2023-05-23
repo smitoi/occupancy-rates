@@ -68,4 +68,20 @@ class JanuaryRoomsOccupancy extends Seeder
             'ends_at' => Carbon::parse('2023-01-10')
         ]);
     }
+
+    public static function getDailyTestCases(): array
+    {
+        return [
+            ['2023-01-02', null, 0.36],
+            ['2023-01-06', ['B', 'C'], 0.2],
+        ];
+    }
+
+    public static function getMonthlyTestCases(): array
+    {
+        return [
+            ['2023-01', null, 0.07],
+            ['2023-01', ['B', 'C'], 0.06],
+        ];
+    }
 }

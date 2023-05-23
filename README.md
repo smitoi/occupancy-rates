@@ -19,6 +19,14 @@ make up
 
 Some useful commands can be found inside the Makefile.
 
+### Login:
+
+#### Administrator
+
+- email: user@bookinglayer.com
+- password: secret
+
+
 ### Links
 
 - **Your Application** http://localhost

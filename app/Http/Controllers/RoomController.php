@@ -52,26 +52,29 @@ class RoomController extends Controller
      * )
      *
      * @param Request $request
-     * @param Carbon $date
+     * @param string $date
      * @return JsonResponse
      */
-    public function dailyOccupancyRates(Request $request, Carbon $date): JsonResponse
+    public function dailyOccupancyRates(Request $request, string $date): JsonResponse
     {
         $validated = $request->validate([
             'room_ids' => 'sometimes|array',
         ]);
 
-        $nextDay = $date->copy();
-        $nextDay->addDay();
-        return response(200)->json([
-            'occupancy_rate' => $this->roomService->computeOccupancyRate(
-                Arr::exists($validated, 'room_ids') ?
-                    Room::query()->whereIn('id', $validated['room_ids'])->get() :
-                    Room::get(),
-                $date,
-                $nextDay
-            )
-        ]);
+        $startOfMonth = Carbon::createFromFormat('Y-m-d', $date);
+        $startOfMonth->startOfDay();
+        $nextDay = $startOfMonth->copy();
+        $nextDay->startOfDay();
+        return response()->json(
+            [
+                'occupancy_rate' => $this->roomService->computeOccupancyRate(
+                    Arr::exists($validated, 'room_ids') ?
+                        Room::query()->whereIn('id', $validated['room_ids'])->get() :
+                        Room::get(),
+                    $startOfMonth,
+                    $nextDay
+                ),
+            ]);
     }
 
     /**
@@ -111,26 +114,27 @@ class RoomController extends Controller
      * )
      *
      * @param Request $request
-     * @param Carbon $date
+     * @param string $date
      * @return JsonResponse
      */
-    public function monthlyOccupancyRates(Request $request, Carbon $date): JsonResponse
+    public function monthlyOccupancyRates(Request $request, string $date): JsonResponse
     {
         $validated = $request->validate([
             'room_ids' => 'sometimes|array',
         ]);
 
-        $date->startOfMonth();
-        $nextMonth = $date->copy();
-        $nextMonth->addMonth()->startOfMonth();
+        $startOfMonth = Carbon::createFromFormat('Y-m', $date);
+        $startOfMonth->startOfMonth();
+        $endOfMonth = $startOfMonth->copy();
+        $endOfMonth->endOfMonth();
 
-        return response(200)->json([
+        return response()->json([
             'occupancy_rate' => $this->roomService->computeOccupancyRate(
                 Arr::exists($validated, 'room_ids') ?
                     Room::query()->whereIn('id', $validated['room_ids'])->get() :
                     Room::get(),
-                $date,
-                $nextMonth
+                $startOfMonth,
+                $endOfMonth
             )
         ]);
     }

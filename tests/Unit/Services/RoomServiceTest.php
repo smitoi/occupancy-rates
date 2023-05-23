@@ -25,10 +25,7 @@ class RoomServiceTest extends TestCase
 
     public function test_compute_room_daily_occupancy_rate(): void
     {
-        $cases = [
-            ['2023-01-02', null, 0.36],
-            ['2023-01-06', ['B', 'C'], 0.2],
-        ];
+        $cases = JanuaryRoomsOccupancy::getDailyTestCases();
 
         foreach ($cases as $case) {
             [$date, $rooms, $occupancyRate] = $case;
@@ -49,10 +46,7 @@ class RoomServiceTest extends TestCase
 
     public function test_compute_room_monthly_occupancy_rate(): void
     {
-        $cases = [
-            ['2023-01', null, 0.07],
-            ['2023-01', ['B', 'C'], 0.06],
-        ];
+        $cases = JanuaryRoomsOccupancy::getMonthlyTestCases();
 
         foreach ($cases as $case) {
             [$date, $rooms, $occupancyRate] = $case;
@@ -69,6 +63,5 @@ class RoomServiceTest extends TestCase
                 ),
                 $occupancyRate);
         }
-
     }
 }

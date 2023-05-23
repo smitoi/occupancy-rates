@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Booking;
 use App\Models\Room;
 use App\Services\RoomService;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

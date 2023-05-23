@@ -11,7 +11,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class DatabaseSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -20,11 +20,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if (app()->runningUnitTests() === false) {
-            Room::factory(3)->create();
-
-            Booking::factory(100)->create();
-            Block::factory(10)->create();
-        }
+        User::create([
+            'name' => 'User',
+            'email' => 'user@bookinglayer.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make(
+                UserFactory::DEFAULT_PASSWORD
+            ),
+        ]);
     }
 }
