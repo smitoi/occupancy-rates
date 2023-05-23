@@ -27,4 +27,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 ->name('monthly-occupancy-rates')
                 ->where('date', '2[0-9]{3}-(0[1-9]|1[0-2])');
         });
+
+    Route::controller(\App\Http\Controllers\BookingController::class)
+        ->prefix('/booking')
+        ->as('booking.')->group(static function () {
+            Route::post('/', 'store')->name('store');
+            Route::put('/{booking}', 'update')->name('update');
+        });
 });

@@ -6,6 +6,8 @@ use App\Models\Room;
 use App\Services\RoomService;
 use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Seeders\OneEmptyRoom;
+use Tests\Seeders\OneFullRoom;
 use Tests\TestCase;
 use Tests\Seeders\JanuaryRoomsOccupancy;
 
